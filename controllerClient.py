@@ -11,7 +11,7 @@ command = ""
 
 
 soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
-soc.connect(("127.0.0.1", 12345))
+soc.connect(("192.168.1.143", 12345))
 
 packet_string = '{\"packet_type\":' + '\"' + packet_type + '\"' \
         + ',\"app_id\":' + '\"' + app_id + '\"' \

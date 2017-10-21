@@ -121,11 +121,20 @@ def start_server():
     soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # this is for easy starting/killing the app
     soc.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    
+    #no dely on TCP send
+    soc.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+
     print('Socket created')
 
     try:
-        soc.bind(("127.0.0.1", 12345))
+
+        host = "192.168.1.143"
+        port = 12345
+
+        soc.bind((host, port))
         print('Socket bind complete')
+
     except socket.error as msg:
         import sys
         print('Bind failed. Error : ' + str(sys.exc_info()))
