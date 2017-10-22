@@ -1,0 +1,6 @@
+when we kill robot, then send messages from controller, when robot re-connect it will throw errors
+when someone telnets and sends some random data there is an exception
+controller and robot: change print to logging and clean up code
+
+
+
