@@ -74,6 +74,7 @@ def main():
                     command = input("Enter command:\n") 
                     packet_string = generate_packet_string("normal", command)
                     send_message(soc, packet_string)
+                    logging.debug("Sent: {}".format(packet_string))
 
                 except:
                     

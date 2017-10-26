@@ -5,7 +5,6 @@ import json
 import logging
 from settings import settings
 
-
 """
 Protocol Payload 
 client_type = "controller" | "robot"
@@ -190,6 +189,7 @@ def start_server():
     # this will make an infinite loop needed for 
     # not reseting server for every client
     while True:
+        
         conn, addr = soc.accept()
         ip, port = str(addr[0]), str(addr[1])
         logging.debug('Accepting connection from ' + ip + ':' + port)
@@ -212,4 +212,5 @@ logging.basicConfig(level = settings.Settings.LOGGING_LEVEL.value)
 q = queue.Queue()   
 
 start_server()
+
 
