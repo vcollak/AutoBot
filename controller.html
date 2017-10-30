@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8" />
+
+<title>Controller</title>
+
+<script language="javascript" type="text/javascript">
+
+    function init(){
+        doConnect()
+    }
+
+  
+  function doConnect()
+  {
+    websocket = new WebSocket("ws://192.168.1.143:8001");
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+
+    document.myform.connectButton.disabled = true;
+    document.myform.forwardButton.disabled = false;
+    document.myform.backwardButton.disabled =false;
+    document.myform.leftButton.disabled = false;
+    document.myform.rightButton.disabled = false;
+    document.myform.stopButton.disabled = false;
+    
+  }
+
+  function onOpen(evt)
+  {
+    updateStatus("connected");
+    document.myform.connectButton.disabled = true;
+  }
+
+  function onClose(evt)
+  {
+    updateStatus("disconnected");
+    document.myform.connectButton.disabled = false;
+    }
+
+  function onMessage(evt)
+  {
+    writeToScreen("response: " + evt.data + '\n');
+  }
+
+  function onError(evt)
+  {
+    writeToScreen('error: ' + evt.data + '\n');
+    websocket.close();
+    updateStatus("Disconnected")
+
+	document.myform.connectButton.disabled = false;
+    document.myform.forwardButton.disabled = true;
+    document.myform.backwardButton.disabled = true;
+    document.myform.leftButton.disabled = true;
+    document.myform.rightButton.disabled = true;
+    document.myform.stopButton.disabled = true;
+    
+  }
+
+  function doSend(message)
+  {
+    writeToScreen("sent: " + message + '\n'); 
+    websocket.send(message);
+  }
+
+  function writeToScreen(message)
+  {
+    //document.getElementById("output").innerHTML =  document.getElementById("output").innerHTML + message + "</br>"
+    console.log(message)
+
+  }
+
+  function updateStatus(message)
+  {
+    document.getElementById("status").innerHTML =  message
+
+  }
+
+
+   function sendForward() {
+        doSend(generatePacketString("forward"));
+   }
+
+   function sendBackward() {
+    doSend(generatePacketString("backward"));
+    }
+
+function sendLeft() {
+    doSend(generatePacketString("left"));
+    }
+
+function sendRight() {
+    doSend(generatePacketString("right"));
+    }
+
+function sendStop() {
+    doSend(generatePacketString("stop"));
+    }
+
+    function generatePacketString(command){
+
+        packet_type = "normal"
+        app_id = "123adalsdjfhaldfjkahl234234234"
+        client_type = "controller"
+
+        var object = new Object();
+        object.packet_type = packet_type
+        object.app_id = app_id
+        object.client_type = client_type
+        object.command = command
+        
+        var jsonString = JSON.stringify(object)
+
+        return jsonString
+        
+        
+    }
+
+   function doDisconnect() {
+       updateStatus("disconnected")
+		websocket.close();
+   }
+
+   window.addEventListener("load", init, false);
+
+
+</script>
+
+<form name="myform">
+<input type="button" name=forwardButton value="Forward" onClick="sendForward();">
+<input type="button" name=backwardButton value="Backward" onClick="sendBackward();">
+<input type="button" name=leftButton value="Left" onClick="sendLeft();">
+<input type="button" name=rightButton value="Right" onClick="sendRight();">
+<input type="button" name=stopButton value="Stop" onClick="sendStop();">
+<input type="button" name=connectButton value="Connect" onClick="doConnect();">
+</p>
+<div id="status"></div>
+
+
+</form>
+</html> 
+
