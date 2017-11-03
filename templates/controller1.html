@@ -1,0 +1,173 @@
+<html>
+
+<head>
+    
+    
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/controller.css') }}">
+
+
+<script language="javascript" type="text/javascript">
+    
+        function init(){
+            doConnect()
+        }
+    
+      
+      function doConnect()
+      {
+        websocket = new WebSocket("ws://192.168.1.143:8001");
+        websocket.onopen = function(evt) { onOpen(evt) };
+        websocket.onclose = function(evt) { onClose(evt) };
+        websocket.onmessage = function(evt) { onMessage(evt) };
+        websocket.onerror = function(evt) { onError(evt) };
+    
+        document.commands.connectButton.disabled = true;
+        document.commands.forwardButton.disabled = false;
+        document.commands.backwardButton.disabled =false;
+        document.commands.leftButton.disabled = false;
+        document.commands.rightButton.disabled = false;
+        document.commands.stopButton.disabled = false;
+        
+      }
+    
+      function onOpen(evt)
+      {
+        updateStatus("connected");
+        document.commands.connectButton.disabled = true;
+      }
+    
+      function onClose(evt)
+      {
+        updateStatus("disconnected");
+        document.commands.connectButton.disabled = false;
+        }
+    
+      function onMessage(evt)
+      {
+        writeToScreen("response: " + evt.data + '\n');
+      }
+    
+      function onError(evt)
+      {
+        writeToScreen('error: ' + evt.data + '\n');
+        websocket.close();
+        updateStatus("Disconnected")
+    
+        document.commands.connectButton.disabled = false;
+        document.commands.forwardButton.disabled = true;
+        document.commands.backwardButton.disabled = true;
+        document.commands.leftButton.disabled = true;
+        document.commands.rightButton.disabled = true;
+        document.commands.stopButton.disabled = true;
+        
+      }
+    
+      function doSend(message)
+      {
+        writeToScreen("sent: " + message + '\n'); 
+        websocket.send(message);
+      }
+    
+      function writeToScreen(message)
+      {
+        //document.getElementById("output").innerHTML =  document.getElementById("output").innerHTML + message + "</br>"
+        console.log(message)
+    
+      }
+    
+      function updateStatus(message)
+      {
+        document.getElementById("status").innerHTML =  message
+    
+      }
+    
+    
+       function sendForward() {
+            doSend(generatePacketString("forward"));
+       }
+    
+       function sendBackward() {
+        doSend(generatePacketString("backward"));
+        }
+    
+    function sendLeft() {
+        doSend(generatePacketString("left"));
+        }
+    
+    function sendRight() {
+        doSend(generatePacketString("right"));
+        }
+    
+    function sendStop() {
+        doSend(generatePacketString("stop"));
+        }
+    
+        function generatePacketString(command){
+    
+            packet_type = "normal"
+            app_id = "123adalsdjfhaldfjkahl234234234"
+            client_type = "controller"
+    
+            var object = new Object();
+            object.packet_type = packet_type
+            object.app_id = app_id
+            object.client_type = client_type
+            object.command = command
+            
+            var jsonString = JSON.stringify(object)
+    
+            return jsonString
+            
+            
+        }
+    
+       function doDisconnect() {
+           updateStatus("disconnected")
+            websocket.close();
+       }
+    
+       window.addEventListener("load", init, false);
+    
+    
+    </script>
+</head>
+
+<body>
+
+        <nav>
+                <ul class="nav">
+                    <li>
+                      <a href="#">
+                        <span class="icon-up" onclick="sendForward();"></span>
+                        <span class="screen-reader-text">Forward</span>
+                      </a>
+                      </li>
+                    <li>
+                      <a href="#">
+                        <span class="icon-down" onclick="sendBackward();"></span>
+                        <span class="screen-reader-text">Backward</span>
+                        
+                      </a></li>
+                    <li>
+                          <a href="#">
+                        <span class="icon-left" onclick="sendLeft();"></span>
+                        <span class="screen-reader-text">Left</span>
+                      </a>
+                      </li>
+                    <li>
+                      <a href="#">
+                        <span class="icon-right" onclick="sendRight();"></span>
+                        <span class="screen-reader-text">Right</span>
+                      </a>
+                    </li>
+                    <li>
+                            <a href="#">
+                              <span class="icon-stop" onclick="sendStop();"></span>
+                              <span class="screen-reader-text">Stop</span>
+                            </a>
+                          </li>
+                </ul>
+            </nav>​
+
+</body>
+    </html>

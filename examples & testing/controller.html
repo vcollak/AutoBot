@@ -19,25 +19,25 @@
     websocket.onmessage = function(evt) { onMessage(evt) };
     websocket.onerror = function(evt) { onError(evt) };
 
-    document.myform.connectButton.disabled = true;
-    document.myform.forwardButton.disabled = false;
-    document.myform.backwardButton.disabled =false;
-    document.myform.leftButton.disabled = false;
-    document.myform.rightButton.disabled = false;
-    document.myform.stopButton.disabled = false;
+    document.commands.connectButton.disabled = true;
+    document.commands.forwardButton.disabled = false;
+    document.commands.backwardButton.disabled =false;
+    document.commands.leftButton.disabled = false;
+    document.commands.rightButton.disabled = false;
+    document.commands.stopButton.disabled = false;
     
   }
 
   function onOpen(evt)
   {
     updateStatus("connected");
-    document.myform.connectButton.disabled = true;
+    document.commands.connectButton.disabled = true;
   }
 
   function onClose(evt)
   {
     updateStatus("disconnected");
-    document.myform.connectButton.disabled = false;
+    document.commands.connectButton.disabled = false;
     }
 
   function onMessage(evt)
@@ -51,12 +51,12 @@
     websocket.close();
     updateStatus("Disconnected")
 
-	document.myform.connectButton.disabled = false;
-    document.myform.forwardButton.disabled = true;
-    document.myform.backwardButton.disabled = true;
-    document.myform.leftButton.disabled = true;
-    document.myform.rightButton.disabled = true;
-    document.myform.stopButton.disabled = true;
+	document.commands.connectButton.disabled = false;
+    document.commands.forwardButton.disabled = true;
+    document.commands.backwardButton.disabled = true;
+    document.commands.leftButton.disabled = true;
+    document.commands.rightButton.disabled = true;
+    document.commands.stopButton.disabled = true;
     
   }
 
@@ -129,17 +129,15 @@ function sendStop() {
 
 </script>
 
-<form name="myform">
-<input type="button" name=forwardButton value="Forward" onClick="sendForward();">
-<input type="button" name=backwardButton value="Backward" onClick="sendBackward();">
-<input type="button" name=leftButton value="Left" onClick="sendLeft();">
-<input type="button" name=rightButton value="Right" onClick="sendRight();">
-<input type="button" name=stopButton value="Stop" onClick="sendStop();">
-<input type="button" name=connectButton value="Connect" onClick="doConnect();">
-</p>
-<div id="status"></div>
-
-
+<form name="commands">
+    <input type="button" name=forwardButton value="Forward" onClick="sendForward();">
+    <input type="button" name=backwardButton value="Backward" onClick="sendBackward();">
+    <input type="button" name=leftButton value="Left" onClick="sendLeft();">
+    <input type="button" name=rightButton value="Right" onClick="sendRight();">
+    <input type="button" name=stopButton value="Stop" onClick="sendStop();">
+    <input type="button" name=connectButton value="Connect" onClick="doConnect();">
+    </p>
 </form>
+<div id="status"></div>
 </html> 
 

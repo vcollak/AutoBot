@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2017 by original authors @ fontello.com</metadata>
+<defs>
+<font id="icons" horiz-adv-x="1000" >
+<font-face font-family="icons" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="down-bold" unicode="&#xe800;" d="M760 366l-380-380-380 380 192 0 0 350 376 0 0-350 192 0z" horiz-adv-x="760" />
+
+<glyph glyph-name="left-bold" unicode="&#xe801;" d="M378 730l0-190 352 0 0-378-352 0 0-192-378 380z" horiz-adv-x="730" />
+
+<glyph glyph-name="right-bold" unicode="&#xe802;" d="M350 730l380-380-380-380 0 192-350 0 0 378 350 0 0 190z" horiz-adv-x="730" />
+
+<glyph glyph-name="up-bold" unicode="&#xe803;" d="M760 336l-192 0 0-350-376 0 0 350-192 0 380 380z" horiz-adv-x="760" />
+
+<glyph glyph-name="stop" unicode="&#xe804;" d="M526 650q74 0 74-64l0-470q0-66-74-66l-450 0q-76 0-76 66l0 470q0 36 18 50t58 14l450 0z" horiz-adv-x="600" />
+</font>
+</defs>
+</svg>
