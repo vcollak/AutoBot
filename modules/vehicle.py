@@ -81,10 +81,10 @@ class Vehicle(threading.Thread):
         motors.setSpeeds(0, 0)
         logging.info("Motor Left") 
 
-        initial_speeds = list(range(0, -MAX_SPEED, -1)) 
+        initial_speeds = list(range(0, -150, -1)) 
         self.run_motors(initial_speeds, True)
 
-        normal_speeds =  [-MAX_SPEED] * 10
+        normal_speeds =  [-150] * 10
 
         #loop until we get a different command
         while self.COMMAND == "left":
@@ -95,10 +95,10 @@ class Vehicle(threading.Thread):
         motors.setSpeeds(0, 0)
         logging.info("Motor Right") 
 
-        initial_speeds = list(range(0, MAX_SPEED, 1)) 
+        initial_speeds = list(range(0, 150, 1)) 
         self.run_motors(initial_speeds, True)
 
-        normal_speeds =  [MAX_SPEED] * 10
+        normal_speeds =  [150] * 10
 
         #loop until we get a different command
         while self.COMMAND == "right":
