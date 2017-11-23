@@ -1,6 +1,7 @@
 # AutoBot - Raspberry PI based robot
 ## About
-AutoBot is a simple project using a remote controlled vehicle and a Raspberry PI to remote control it. This repository contains both instructions on how to build the vehicle, as well as all the code necessary to run it. This project is a good way to ger faimilar with Raspberry PI and Python. 
+AutoBot is a simple project using a vehicle kit that leverages Raspberry PI to control the motors and a mobile friendly webpage as a controller. This repository contains both instructions on how to build the vehicle, as well as all the code necessary to run it. This project is a good way to get familiar with Raspberry PI and Python. 
+
 
 Here is what the final robot looks like on a video:
 
