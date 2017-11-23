@@ -1,4 +1,0 @@
-websocket server to implement security
-implement proper documentation
-change methods and vars to protected (_) or private (__)
-implemnt best practices: https://gist.github.com/sloria/7001839

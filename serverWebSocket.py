@@ -1,3 +1,34 @@
+###############################################################################
+#
+# The MIT License (MIT)
+#
+# Copyright (c) Vladimir Collak
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+###############################################################################
+
+"""
+Websocket server that receives commands from the controller and passes them
+to the main server
+
+"""
 from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 import logging
 from settings import settings
@@ -15,6 +46,10 @@ class ControllerWebSocketServer(WebSocket):
     
     
     def handleMessage(self):
+        """
+        Handles te message sent via web wocket. Once received it will
+        send the packet to the main socket server 
+        """
         
         #host and port for the command server
         self.host = settings.Settings.HOST.value
@@ -52,13 +87,22 @@ class ControllerWebSocketServer(WebSocket):
             self.sendMessage("Unable to connect to {}:{}".format(host, port))
 
     def handleConnected(self):
+        """
+        Client is connected 
+        """
         logging.info("Client {} connected".format(self.address))
 
     def handleClose(self):
+        """
+        Client was disconnected
+        """
         logging.info("Client {} disconnected".format(self.address))
         
     def get_commands(self,packet_string):
-        
+        """
+        Parses the commands from the controller, checks the APP_ID
+        and passed them to the main server 
+        """
         try:
 
             input_from_client_object = json.loads(packet_string)
@@ -110,6 +154,9 @@ class ControllerWebSocketServer(WebSocket):
             return
 
     def send_message(self,soc, packet_string):
+        """
+        Send the message to the main server
+        """
             
         logging.debug("Sending {}".format(packet_string))
         soc.send(packet_string.encode("utf8")) # we must encode the string to bytes  

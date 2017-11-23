@@ -2,8 +2,11 @@
 
 <head>
     
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/controller.css') }}">
 
+
+<script type="text/javascript" src="static/settings/settings.js"></script>
 
 <script language="javascript" type="text/javascript">
     
@@ -14,31 +17,28 @@
       
       function doConnect()
       {
-        websocket = new WebSocket("ws://192.168.1.143:8001");
+        
+        //config and connect
+        console.log("Connecting to " + config.connection)
+        websocket = new WebSocket(config.connection);
+        
         websocket.onopen = function(evt) { onOpen(evt) };
         websocket.onclose = function(evt) { onClose(evt) };
         websocket.onmessage = function(evt) { onMessage(evt) };
         websocket.onerror = function(evt) { onError(evt) };
     
-        document.commands.connectButton.disabled = true;
-        document.commands.forwardButton.disabled = false;
-        document.commands.backwardButton.disabled =false;
-        document.commands.leftButton.disabled = false;
-        document.commands.rightButton.disabled = false;
-        document.commands.stopButton.disabled = false;
-        
       }
     
       function onOpen(evt)
       {
         updateStatus("connected");
-        document.commands.connectButton.disabled = true;
+        
       }
     
       function onClose(evt)
       {
         updateStatus("disconnected");
-        document.commands.connectButton.disabled = false;
+        
         }
     
       function onMessage(evt)
@@ -52,13 +52,6 @@
         websocket.close();
         updateStatus("Disconnected")
     
-        document.commands.connectButton.disabled = false;
-        document.commands.forwardButton.disabled = true;
-        document.commands.backwardButton.disabled = true;
-        document.commands.leftButton.disabled = true;
-        document.commands.rightButton.disabled = true;
-        document.commands.stopButton.disabled = true;
-        
       }
     
       function doSend(message)
@@ -76,7 +69,8 @@
     
       function updateStatus(message)
       {
-        document.getElementById("status").innerHTML =  message
+        //document.getElementById("status").innerHTML =  message
+        console.log(message)
     
       }
     
@@ -132,46 +126,42 @@
 </head>
 
 <body>
-<form name="commands">
 
-<div class="divTable blueTable">
-    
-    <div class="divTableHeading">
-    <div class="divTableRow">
-    <div class="divTableHead">&nbsp;</div>
-    <div class="divTableHead">&nbsp;</div>
-    <div class="divTableHead">&nbsp;</div>
-    <div class="divTableHead">&nbsp;</div>
-    </div>
-    </div>
-    <div class="divTableBody">
-    <div class="divTableRow">
-    <div class="divTableCell"><input class="btn" type="button" name=forwardButton value="Forward" onClick="sendForward();"></div>
-    <div class="divTableCell">&nbsp;</div>
-    <div class="divTableCell"><input class="btn" type="button" name=leftButton value="<" onClick="sendLeft();"></div>
-    <div class="divTableCell"><input class="btn" type="button" name=rightButton value=">" onClick="sendRight();"></div>
-    </div>
-    <div class="divTableRow">
-    <div class="divTableCell"><input class="btn" type="button" name=backwardButton value="Backward" onClick="sendBackward();"></div>
-    <div class="divTableCell">&nbsp;</div>
-    <div class="divTableCell">&nbsp;</div>
-    <div class="divTableCell">&nbsp;</div>
-    </div>
-    <div class="divTableRow">
-    <div class="divTableCell">&nbsp;</div>
-    <div class="divTableCell"><input class="btn_red" type="button" name=stopButton value="Stop" onClick="sendStop();"></div>
-    <div class="divTableCell">&nbsp;</div>
-    <div class="divTableCell">&nbsp;</div>
-    </div>
-    <div class="divTableRow">
-    <div class="divTableCell">&nbsp;</div>
-    <div class="divTableCell"><input class="btn_green" type="button" name=connectButton value="Connect" onClick="sendConnect();"></div>
-    <div class="divTableCell">&nbsp;</div>
-    <div class="divTableCell">&nbsp;</div>
-    </div>
-    </div>
-    </div>
-    <div id="status"></div>
-</form>
+        <nav>
+                <ul class="nav">
+                    <li>
+                      <a href="#">
+                        <span class="icon-up" onclick="sendForward();"></span>
+                        <span class="screen-reader-text">Forward</span>
+                      </a>
+                      </li>
+                    <li>
+                      <a href="#">
+                        <span class="icon-down" onclick="sendBackward();"></span>
+                        <span class="screen-reader-text">Backward</span>
+                        
+                      </a></li>
+                    <li>
+                          <a href="#">
+                        <span class="icon-left" onclick="sendLeft();"></span>
+                        <span class="screen-reader-text">Left</span>
+                      </a>
+                      </li>
+                    <li>
+                      <a href="#">
+                        <span class="icon-right" onclick="sendRight();"></span>
+                        <span class="screen-reader-text">Right</span>
+                      </a>
+                    </li>
+                    <li>
+                            <a href="#">
+                              <span class="icon-stop" onclick="sendStop();"></span>
+                              <span class="screen-reader-text">Stop</span>
+                            </a>
+                          </li>
+                </ul>
+            </nav>​
+        
+
 </body>
     </html>
