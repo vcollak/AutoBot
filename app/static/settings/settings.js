@@ -30,8 +30,9 @@
 
 
 var config = {
-    connection: 'ws://192.168.1.143:8001'     //development server
-    //connection: 'ws://52.176.147.178:8001'   //production server
+    connection: 'ws://192.168.1.143:8001',    //development server
+    appId: '123adalsdjfhaldfjkahl234234234'   //app id
+
   };
   
   

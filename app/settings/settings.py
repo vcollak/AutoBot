@@ -36,7 +36,6 @@ class Settings(Enum):
 
     HOST = "0.0.0.0"                            #local host used to bind locally
     HOST_REMOTE = "192.168.1.143"               #DEV remote host used to bind remotely 
-    #HOST_REMOTE = "52.176.147.178"               #PROD remote host used to bind remotely 
     PORT = 8000                                 #TCP port for the first server
     APP_ID = "123adalsdjfhaldfjkahl234234234"   #app id for security
     LOGGING_LEVEL = logging.DEBUG               #logging level
