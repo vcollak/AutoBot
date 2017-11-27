@@ -8,9 +8,14 @@ This script can be found: https://github.com/pololu/drv8835-motor-driver-rpi
 from __future__ import print_function
 import time
 
-#change path to root so we can call settings
+#change path to app so we can call the vehicle class and settings
 import os.path, sys
-sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
+splitPath =  os.path.split(os.path.dirname(os.path.realpath(__file__)))
+appPath = splitPath[0] + "/app"
+sys.path.append(appPath)
+sys.path.append(appPath + "/modules")
+sys.path.append(appPath + "/settings")
+
 
 from pololu_drv8835_rpi import motors, MAX_SPEED
 

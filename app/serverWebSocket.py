@@ -29,7 +29,7 @@ Websocket server that receives commands from the controller and passes them
 to the main server
 
 """
-from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
+from modules import SimpleWebSocketServer
 import logging
 from settings import settings
 import socket
@@ -37,7 +37,7 @@ import time
 import json
 
 
-class ControllerWebSocketServer(WebSocket):
+class ControllerWebSocketServer(SimpleWebSocketServer.WebSocket):
 
     CLIENT_TYPE = "controller"
     host = ""
@@ -173,7 +173,7 @@ host = settings.Settings.HOST.value
 port = settings.Settings.PORT.value
 
 #start the web socket server used by the controller
-server = SimpleWebSocketServer(host, port + 1, ControllerWebSocketServer)
+server = SimpleWebSocketServer.SimpleWebSocketServer(host, port + 1, ControllerWebSocketServer)
 logging.info("Server UP on {}:{}".format(host, port + 1))
 server.serveforever()   
     

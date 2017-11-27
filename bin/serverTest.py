@@ -34,7 +34,11 @@ import logging
 
 #change path to root so we can call settings
 import os.path, sys
-sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
+splitPath =  os.path.split(os.path.dirname(os.path.realpath(__file__)))
+appPath = splitPath[0] + "/app"
+sys.path.append(appPath)
+sys.path.append(appPath + "/modules")
+sys.path.append(appPath + "/settings")
 
 from settings import settings
 import time
