@@ -2,6 +2,8 @@
 ## About
 AutoBot is a simple project using a vehicle kit that leverages Raspberry PI to control the motors and a mobile friendly webpage as a controller. This repository contains both instructions on how to build the vehicle, as well as all the code necessary to run it. This project is a good way to get familiar with Raspberry PI and Python. 
 
+## Background
+AutoBot is really a learning project. My 13-year-old son and I decided to take the Tamiya kit that I bought and make it remote controlled using the Raspberry PI. AutoBot became the result of that learning experience. We started knowing next to nothing about the PI and Python and ended-up with a working robot. Below shows how we assembled the hardware as well as how to configure and use the software.
 
 Here is what the final robot looks like on a video:
 
