@@ -89,7 +89,7 @@ The AutoBot is powered by an external battery. By adding the voltage regulator t
 Once the hardware is assembled, you'll need to get the software. To do that, clone this repository. It includes everything you need to remote control the robot. 
 
 ```shell 
-    git clone <URL></URL>
+    git clone https://github.com/vcollak/AutoBot
 
 ```
 #### settings.py
