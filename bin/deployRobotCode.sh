@@ -7,13 +7,19 @@
 # USER="pi"
 # DESTPATH="/home/pi/robot"
 
-#Deplpys the code to the robot
+
 
 if [ "$#" -eq 3 ]
 then
 
+
+    HOST=$1
+    USER=$2
+    DESTPATH=$3
+
+    echo "Connecting $USER@$HOST:$DESTPATH"
     scp ../app/clientRobot.py $USER@$HOST:$DESTPATH
-    scp ../app/modules/vehicle.py $USER@$HOST:$DESTPATH
+    scp ../app/modules/vehicle.py $USER@$HOST:$DESTPATH/modules
     scp ../app/modules/pololu_drv8835_rpi.py $USER@$HOST:$DESTPATH/modules
     scp ../app/settings/settings.py $USER@$HOST:$DESTPATH/settings
 

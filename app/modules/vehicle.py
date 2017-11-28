@@ -74,7 +74,8 @@ class Vehicle(threading.Thread):
 
             elif self.COMMAND == "right":
                 self._right_loop()
-                
+            
+            time.sleep(0.1)  
         
 
     def _stop_loop(self):
@@ -85,7 +86,7 @@ class Vehicle(threading.Thread):
 
         #loop until we get another command. 
         while self.COMMAND == "stop":
-            pass
+            time.sleep(0.1) 
 
     def _forward_loop(self):
         """ User called forward. Loop while it's still a forward command """
@@ -96,14 +97,15 @@ class Vehicle(threading.Thread):
 
         #ramp up from 0 to MAX_SPEED
         initial_speeds = list(range(0, MAX_SPEED, 1)) 
-        self._run_motors(initial_speeds, False)
+        self._run_motors(initial_speeds, False, self.COMMAND)
 
         #MAX_SPEED 10 times
         normal_speeds =  [MAX_SPEED] * 10
 
         #loop until we get a different command
         while self.COMMAND == "forward":
-            self._run_motors(normal_speeds, False)
+            self._run_motors(normal_speeds, False,self.COMMAND)
+            time.sleep(0.1) 
 
     def _backward_loop(self):
         """ User called backward. Loop while it's still a backward command """
@@ -114,14 +116,15 @@ class Vehicle(threading.Thread):
 
         #ramp up to MAX_SPEED
         initial_speeds = list(range(0, -MAX_SPEED, -1)) 
-        self._run_motors(initial_speeds, False)
+        self._run_motors(initial_speeds, False,self.COMMAND)
 
         #max speed 10 times
         normal_speeds =  [-MAX_SPEED] * 10
 
         #loop until we get a different command
         while self.COMMAND == "backward":
-            self._run_motors(normal_speeds, False)
+            self._run_motors(normal_speeds, False),self.COMMAND
+            time.sleep(0.1) 
 
     def _left_loop(self):
         """ User called left. Loop while it's still a left command """
@@ -132,14 +135,15 @@ class Vehicle(threading.Thread):
 
         #ramp up to 75. Slower than MAX_SPEED
         initial_speeds = list(range(0, -75, -1)) 
-        self._run_motors(initial_speeds, True)
+        self._run_motors(initial_speeds, True,self.COMMAND)
 
         #10 more times at 75
         normal_speeds =  [-75] * 10
 
         #loop until we get a different command
         while self.COMMAND == "left":
-            self._run_motors(normal_speeds, True)
+            self._run_motors(normal_speeds, True,self.COMMAND)
+            time.sleep(0.1) 
 
     def _right_loop(self):
         """ User called right. Loop while it's still a right command """
@@ -150,16 +154,17 @@ class Vehicle(threading.Thread):
 
         #ramp up to 75
         initial_speeds = list(range(0, 75, 1)) 
-        self._run_motors(initial_speeds, True)
+        self._run_motors(initial_speeds, True,self.COMMAND)
 
         #75 10 times
         normal_speeds =  [75] * 10
 
         #loop until we get a different command
         while self.COMMAND == "right":
-            self._run_motors(normal_speeds, True)
+            self._run_motors(normal_speeds, True,self.COMMAND)
+            time.sleep(0.1) 
 
-    def _run_motors(self, speeds, same):
+    def _run_motors(self, speeds, same, command):
         """ Runs both motors given the speeds list and instructions 
         
         Args:
@@ -179,5 +184,9 @@ class Vehicle(threading.Thread):
                 motors.motor2.setSpeed(-speed)
             
             time.sleep(0.005) 
+
+            if command != self.COMMAND:
+                logging.debug("Detected command chage. Existing run_motors loop.")
+                break
 
   

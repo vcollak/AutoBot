@@ -82,12 +82,14 @@ def robot_loop(soc, vehicle):
     while True:
         
         try:
+            logging.debug("Start Loop and wait for command...")
             result_bytes = soc.recv(4096) # the number means how the response can be in bytes  
             result_string = result_bytes.decode("utf8") # the return will be in bytes, so decode
             logging.debug("Result from server is {}".format(result_string))  
             server_object = json.loads(result_string)
             command = server_object['command']
             vehicle.COMMAND = command
+            time.sleep(0.1) 
 
         except:
             logging.error("Unable to receive command from the server" + str(sys.exc_info()))
@@ -119,6 +121,7 @@ def main():
             
             #will loop until disconnected or fatal error
             robot_loop(soc, vehicle)
+            time.sleep(0.1) 
         
         else:
             logging.error("Unable to connect to {}:{}. Retrying after {} secs...".format(HOST, PORT,SLEEP_TIME))
