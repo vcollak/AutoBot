@@ -11,7 +11,7 @@ import time
 #change path to app so we can call the vehicle class and settings
 import os.path, sys
 splitPath =  os.path.split(os.path.dirname(os.path.realpath(__file__)))
-appPath = splitPath[0] + "/app"
+appPath = splitPath[0]
 sys.path.append(appPath)
 sys.path.append(appPath + "/modules")
 sys.path.append(appPath + "/settings")
@@ -32,23 +32,16 @@ try:
     print("Motor 1 forward")
     for s in test_forward_speeds:
         motors.motor1.setSpeed(s)
+        motors.motor2.setSpeed(-s)
         time.sleep(0.005)
 
     print("Motor 1 reverse")
     for s in test_reverse_speeds:
         motors.motor1.setSpeed(s)
+        motors.motor2.setSpeed(-s)
         time.sleep(0.005)
 
-    print("Motor 2 forward")
-    for s in test_forward_speeds:
-        motors.motor2.setSpeed(s)
-        time.sleep(0.005)
-
-    print("Motor 2 reverse")
-    for s in test_reverse_speeds:
-        motors.motor2.setSpeed(s)
-        time.sleep(0.005)
-
+    
 finally:
   # Stop the motors, even if there is an exception
   # or the user presses Ctrl+C to kill the process.

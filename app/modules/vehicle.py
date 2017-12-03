@@ -123,7 +123,7 @@ class Vehicle(threading.Thread):
 
         #loop until we get a different command
         while self.COMMAND == "backward":
-            self._run_motors(normal_speeds, False),self.COMMAND
+            self._run_motors(normal_speeds, False,self.COMMAND)
             time.sleep(0.1) 
 
     def _left_loop(self):
